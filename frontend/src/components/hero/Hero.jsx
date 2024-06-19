@@ -19,8 +19,8 @@ import {
   import IconSection from "./IconSection";
   
   const mySlider = [
-    { text: "MEN", link: "src/images/banner-15.jpg" },
-    { text: "WOMEN", link: "src/images/banner-25.jpg" },
+    { text: "MEN", link: "./images/banner-15.jpg" },
+    { text: "WOMEN", link: "./images/banner-25.jpg" },
   ];
   
   const Hero = () => {
@@ -125,7 +125,7 @@ import {
   
           <Box sx={{ display: { xs: "none", md: "block", minWidth: "26.6%" } }}>
             <Box sx={{ position: "relative" }}>
-              <img width={"100%"} src="src/images/banner-17.jpg" alt="" />
+              <img width={"100%"} src="./images/banner-17.jpg" alt="" />
   
               <Stack
                 sx={{
@@ -185,7 +185,7 @@ import {
             </Box>
   
             <Box sx={{ position: "relative" }}>
-              <img width={"100%"} src="src/images/banner-16.jpg" alt="" />
+              <img width={"100%"} src="./images/banner-16.jpg" alt="" />
               <Stack
                 sx={{
                   position: "absolute",

@@ -1,6 +1,7 @@
 import {
   Box,
   Button,
+  CircularProgress,
   Container,
   Dialog,
   IconButton,
@@ -22,7 +23,9 @@ import ProductDetails from "./ProductDetails";
 import { useGetproductByNameQuery } from "../../Redux/product";
 const Main = () => {
   const handleAlignment = (event, newValue) => {
-    setmyDate(newValue);
+    if (newValue !== null) {
+      setmyDate(newValue);
+    }
   };
 
   const theme = useTheme();
@@ -42,24 +45,23 @@ const Main = () => {
 
   const [myDate, setmyDate] = useState(allProductsAPI);
   const { data, error, isLoading } = useGetproductByNameQuery(myDate);
-
-  if (data) {
-    console.log(data.data);
-  }
+  const [clickedProduct, setclickedProduct] = useState({});
 
   if (isLoading) {
-    return <Typography variant="h6">LOADING..............</Typography>;
+    return(
+      <Box> <CircularProgress /> </Box>
+    );
   }
 
   if (error) {
     return (
-      <Typography variant="h6">
-        {" "}
-        {
-          // @ts-ignore
-          error.message
-        }
-      </Typography>
+      <Container sx={{
+        py: 11,
+        textAlign: "center"
+      }}>
+        <Typography variant="h6">{error.error}</Typography>
+        <Typography variant="h6">Please try again later</Typography>
+      </Container>
     );
   }
 
@@ -131,7 +133,7 @@ const Main = () => {
           {data.data.map((item) => {
             return (
               <Card
-                key={item}
+                key={item.id}
                 sx={{
                   maxWidth: 333,
                   mt: 6,
@@ -171,7 +173,10 @@ const Main = () => {
 
                 <CardActions sx={{ justifyContent: "space-between" }}>
                   <Button
-                    onClick={handleClickOpen}
+                    onClick={() => {
+                      handleClickOpen()
+                      setclickedProduct(item)
+                    }}
                     sx={{ textTransform: "capitalize" }}
                     size="large"
                   >
@@ -212,7 +217,7 @@ const Main = () => {
             <Close />
           </IconButton>
 
-          <ProductDetails />
+          <ProductDetails clickedProduct={clickedProduct} />
         </Dialog>
       </Container>
     );
